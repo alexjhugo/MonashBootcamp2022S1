@@ -60,55 +60,103 @@ def selection_sort(numbers):
     It is based on the Selection Sort algorithm.
     :param numbers: a list of number
     """
-    n = len(numbers)   # the number of elements in 'numbers'
+    n = len(numbers)  # n is a variable containing the number of elements in 'numbers'
+                      # In Python, we use the len function to get the number of elements
+                      # in a list
 
-    # iterate over every of element of 'numbers'
-    #   we iterate over the elements by using the index
-    #   in this case, the loop starts from index 0 (the first element) up to
-    #   index n-1 (the last element)
+    # Here we use a 'for-loop' to check the numbers in all of the positions of the list
+    # range(n) below returns a sequence of number from 0 up to n-1:
+    # So, 'for i in range(n)' basically means
+    # "for each number 'i' in the sequence [0, 1, 2, ..., n-1]"
+    # 'i' in here is used for accessing the numbers in the list (also known as an index or position).
+    # In Python, we access the elements of a list by using the syntax of the following form:
+    # list_name[index]
+    # and the first element is located at index 0, second element is at index 1,
+    # and so on, up to the last element at index n-1
+    # (this is the way it works in Python and many other programming languages).
     for i in range(n):
-        cur_num = numbers[i]  # the current number we're 'processing'
-        min_num = cur_num     # the current minimum number in
-        min_index = i
+        cur_num = numbers[i]  # cur_num represents the number that we're currently checking
 
-        # find index of minimum element in the 'unsorted' part of the list
-        # at the 1st iteration of the outer loop, the whole list is still treated as unsorted
-        for j in range(i+1, n):
-            if numbers[j] < min_num:
-                min_num = numbers[j]
-                min_index = j
+        min_num = cur_num     # min_num represents the minimum number in the portion of the list from index i up to n-1.
+                              # in this case, it is by default set to cur_num.
+                              # This may or may not change later in the comparison step.
 
-        # swap
+        min_index = i         # This is similar to min_num, but it contains the index of the minimum number
+                              # in the portion of the list from index i up to n-1.
+
+        # Find index of minimum element in the 'remaining' portion of the list
+        # (the portion of the list starting from the position that is 1 index
+        # next to the current number up to the last number)
+
+        # Like before, we are using a for loop, but this time we are using it
+        # to search for the minimum number in the portion of the list from index
+        # i+1 (the position that is 1 index to the right of our current number at index 'i', up to n-1)
+        for j in range(i+1, n):  # here j is used to denote the index of this portion of the list
+            if numbers[j] < min_num:  # if the number at index j is smaller than min_num
+                                      # (which by default contains the number at index i)
+                min_num = numbers[j]  # we set min_num to be the number at index j
+                min_index = j         # and set the min_index to be j
+        # After this loop runs, you'll end up with min_num containing the minimum number in
+        # the portion of the list STARTING FROM index i up to n-1
+        # and min_index to be the index of this number
+
+        # decide if we want to swap min_num with cur_num
+        # if min_num >= cur_num, we do not swap
+        # otherwise we swap
         if min_num < cur_num:
-            numbers[i] = min_num
-            numbers[min_index] = cur_num
+            numbers[i] = min_num  # set numbers[i] to min_num
+            numbers[min_index] = cur_num  # set numbers[min_index] to cur_num
 
 
-
+# Run the script using the code below
 if __name__ == "__main__":
-    # all same elem
+    # an unsorted list with all unique numbers
     nums = [3, 1, 2, 5, 4, 8, 6, 7, 9]
     nums_copy = [3, 1, 2, 5, 4, 8, 6, 7, 9]
-    print(nums)
+    print("Before Sorting: {}".format(nums))
     selection_sort(nums)
-    print(nums)
+    print("After Sorting:  {}".format(nums))
     print(nums == sorted(nums_copy))
     print()
 
 
-    # duplicates
+    # an unsorted list with duplicate elements (two 3s)
     nums =      [3, 1, 2, 5, 4, 8, 3, 6, 7, 9]
     nums_copy = [3, 1, 2, 5, 4, 8, 3, 6, 7, 9]
-    print(nums)
+    print("Before Sorting: {}".format(nums))
     selection_sort(nums)
-    print(nums)
+    print("After Sorting:  {}".format(nums))
     print(nums == sorted(nums_copy))
     print()
 
+    # an unsorted list containing a negative number
     nums =      [3, 1, 2, 5, 4, 8, 6, 7, 9, 1234, -111]
     nums_copy = [3, 1, 2, 5, 4, 8, 6, 7, 9, 1234, -111]
-    print(nums)
+    print("Before Sorting: {}".format(nums))
     selection_sort(nums)
-    print(nums)
+    print("After Sorting:  {}".format(nums))
     print(nums == sorted(nums_copy))
     print()
+
+    # an list containing multiple copies of the same number
+    nums = [3, 3, 3, 3, 3, 3, 3, 3]
+    nums_copy = [3, 3, 3, 3, 3, 3, 3, 3]
+    print("Before Sorting: {}".format(nums))
+    selection_sort(nums)
+    print("After Sorting:  {}".format(nums))
+    print(nums == sorted(nums_copy))
+    print()
+
+    # a sorted list
+    nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    nums_copy = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    print("Before Sorting: {}".format(nums))
+    selection_sort(nums)
+    print("After Sorting:  {}".format(nums))
+    print(nums == sorted(nums_copy))
+    print()
+
+
+# NOTE: I usually write selection sort in a simpler way but I find the one
+#       above easier to explain. I also usually decompose the function into
+#       smaller functions that each only perform one specific task.
