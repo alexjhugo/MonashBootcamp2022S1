@@ -22,9 +22,44 @@ Otherwise there is no swapping, and the current number stays in its position.
 
 We'll then do this for all numbers in the list, and the list will eventually
 be sorted :)
+
+We know that the whole list will eventually be sorted, as everytime we check
+a number in the list and decide if we want to swap it with the smallest number 
+in the 'remaining' portion of the list, the number in the position we're checking
+is already in its final position. 
+
+The reason that the number is already in its final
+position is because of the fact that everytime we check a number in a given position
+in a list, we have to SEARCH for the SMALLEST number in the 'remaining' portion of the 
+list. 
+
+To demonstrate this, let's say that we're currently checking the number in the 
+FIRST position of the list. Like before, we need to scan the part of the list starting
+from the number in the second position up to the number in the last position, for
+the smallest number of this portion.
+We then compare, is the first number smaller than the minimum number of the 'remaining'
+portion and deeccide if we want to swap them or not, as explained before. So, after 
+this operation, we know that the number in the first position contains the smallest number
+of the list. This operation then is performed for every position of the list, and to give
+an example again, if we did this to the number in the second position of the list, the operation
+will then cause the numbers in the first and second position to be the 2-smallest numbers of the
+whole list, and this number in the second position is also greater than the number in the first
+position.
+
+Basically, after every iteration of our operation, the first i-numbers (in this case
+'i' denotes the number of iterations of the operation that we've performed so far) 
+is already sorted, and the numbers in this portion is smaller than the number in the
+'remaining' portion that we haven't checked and performed the operation on.
+This is also known as the Loop Invariant, which will be further discussed in
+FIT1045/FIT1008/FIT2004.
 """
 
 def selection_sort(numbers):
+    """
+    This function sorts a given list of number in ascending order.
+    It is based on the Selection Sort algorithm.
+    :param numbers: a list of number
+    """
     n = len(numbers)   # the number of elements in 'numbers'
 
     # iterate over every of element of 'numbers'
